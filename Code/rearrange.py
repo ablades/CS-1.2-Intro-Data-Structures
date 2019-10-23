@@ -35,10 +35,12 @@ if __name__ == "__main__":
 
     print(words_list)
     
-    words_list = shuffle_list(words_list)
+    #Shuffles list
+    shuffled_list = shuffle_list(words_list)
+    print(shuffled_list)
 
-    print(words_list)
-
-    print(reverse_words(words_list))
+    #Reverses list
+    reversed_list = reverse_words(words_list)
+    print(reversed_list)
 
 
