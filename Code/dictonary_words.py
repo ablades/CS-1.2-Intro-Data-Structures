@@ -7,7 +7,6 @@ import sys
 
 def read_file():
     words = list()
-    count = 0
     with open('/usr/share/dict/words', 'r') as f: 
         words = f.read().split('\n')
 
