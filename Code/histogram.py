@@ -12,12 +12,13 @@ def read_file(file_name):
 
     return words
 
-
-def histogram(words):
+#dictionary
+def histogram_dictonary(words):
     histogram = dict()
 
     #Look up and increment word
-    histogram[word] = histogram.get(word, 0) + 1
+    for word in words:
+        histogram[word] = histogram.get(word, 0) + 1
 
     return histogram
 
@@ -37,13 +38,32 @@ def histogram_list_of_lists(words):
 
     return histogram
             
+
+def histogram_of_tuples(words):
+    histogram = list()
+
+    item = tuple()
+
+    for word in words:
+
+        for index, item in enumerate(histogram):
+            #Item is already in list
+            if item[0] == word:
+                histogram[index] = (word, (item[1] + 1))
+                break
+        #Item is not in list
+        else:
+            histogram.append((word, 1))
+
+    return histogram
+        
             
 
     
 
 
 
-def unquie_words(histogram):
+def unique_words(histogram):
     pass
 
 
@@ -57,7 +77,8 @@ if __name__ == "__main__":
     words = read_file(file_name)
 
     #Histogram using dict
-    histogram(words)
+    print(f"Dictionary: {histogram_dictonary(words)}")
 
+    print(f"Tuples: {histogram_of_tuples(words)}")
     #Histogram using list of lists
     histogram_list_of_lists(words)
