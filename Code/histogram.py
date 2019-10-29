@@ -32,6 +32,7 @@ def histogram_list_of_lists(words):
             if item[0] == word:
                 item[1] += 1
                 break
+
         #add item to list if it does not exist
         else:
             histogram.append([word, 1])
@@ -41,8 +42,6 @@ def histogram_list_of_lists(words):
 
 def histogram_of_tuples(words):
     histogram = list()
-
-    item = tuple()
 
     for word in words:
 
@@ -64,11 +63,18 @@ def histogram_of_tuples(words):
 
 
 def unique_words(histogram):
-    pass
+    return len(histogram)
 
 
 def frequency(word, histogram):
-    pass
+    #histogram is a list or tuple
+    if isinstance(histogram, (list, tuple)):
+        for item in histogram:
+            if item[0] == word:
+                return item[1]
+    #Histogram is a dictonary
+    elif isinstance(histogram, dict):
+        return histogram.get("word", 0)
 
 
 if __name__ == "__main__":
@@ -81,4 +87,4 @@ if __name__ == "__main__":
 
     print(f"Tuples: {histogram_of_tuples(words)}")
     #Histogram using list of lists
-    histogram_list_of_lists(words)
+    print(f"List of Lists: {histogram_list_of_lists(words)}")
