@@ -8,7 +8,8 @@ def read_file(file_name):
 
     #Strip words of special characters
     for word in words:
-        word = word.strip(".@'/").upper()
+        word = word.strip(".@'/")
+        word = word.lower()
 
     return words
 
