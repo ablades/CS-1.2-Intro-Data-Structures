@@ -56,11 +56,6 @@ def histogram_of_tuples(words):
 
     return histogram
         
-            
-
-    
-
-
 
 def unique_words(histogram):
     return len(histogram)
@@ -75,6 +70,51 @@ def frequency(word, histogram):
     #Histogram is a dictonary
     elif isinstance(histogram, dict):
         return histogram.get("word", 0)
+
+def histogram_list_of_counts(words):
+    histogram = list()
+    #([count], list())
+    #[("count",['word', 'test', 'gdsgf'] )]
+
+    #add words to histogram
+    for word in words:
+        #look at items(tuples) in histogram
+        for i, tup in enumerate(histogram):
+            #look at items in list in tuple is in index 1
+            for j, j_item in enumerate(histogram[i][1]):
+                # item already in list
+                if word == j_item:
+                    #get current item count
+                    count = histogram[i][0]
+                    #remove word from list
+                    histogram[i][1].pop(j)
+
+                    #loop through histogram
+                    for k, k_item in enumerate(histogram):
+                        #count is already in histogram append word to list
+                        if (count + 1) == histogram[k][0]:
+                            histogram[k][1].append(word)
+                            break
+                
+                    #count does not exist in list so create it
+                    else:
+                        histogram.append((count + 1, [word])
+                        
+
+
+
+
+
+    #create a list
+    #make a tuple where ([number], list of words with that count)
+
+    #loop through entire words list
+    #check if word is already in the list.
+    #if it is move it to the next list. create that list if it doesnt exist
+
+
+    pass
+
 
 
 if __name__ == "__main__":
