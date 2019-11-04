@@ -15,6 +15,7 @@ def better_words(count, token_count, histogram):
     while count > 0:
         #choose a random number in that range.
         rand_value = random.randint(0, token_count - 1)
+        
         #keeps track of value
         total_count = 0
 
