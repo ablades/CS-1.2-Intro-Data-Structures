@@ -7,11 +7,13 @@ def read_file(file_name):
         words = f.read().split()
 
     #Strip words of special characters
-    for word in words:
-        word = word.strip(".@'/")
-        word = word.lower()
 
-    return words
+    word_list = []
+    for word in words:
+        word = word.strip(".@'/").lower()
+        word_list.append(word)
+
+    return word_list
 
 #dictionary
 def histogram_dictonary(words):
@@ -99,7 +101,8 @@ def histogram_list_of_counts(words):
                 
                     #count does not exist in list so create it
                     else:
-                        histogram.append((count + 1, [word])
+                        pass
+    pass
                         
 
 
@@ -112,9 +115,6 @@ def histogram_list_of_counts(words):
     #loop through entire words list
     #check if word is already in the list.
     #if it is move it to the next list. create that list if it doesnt exist
-
-
-    pass
 
 
 

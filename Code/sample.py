@@ -1,37 +1,37 @@
 import random
 import sys
 
-def read_file(file_name):
-    #Read in file
-    with open(file_name, 'r') as f:
-        words = f.read().split()
+from histogram import read_file, histogram_dictonary
 
-    #Strip words of special characters
-    for word in words:
-        word = word.strip(".@'/")
-        word = word.lower()
 
-    return words
-
-def histogram_dictonary(words):
-    histogram = dict()
-
-    #Look up and increment word
-    for word in words:
-        histogram[word] = histogram.get(word, 0) + 1
-
-    return histogram
 
 #create the sample list
-def sample_list(histogram):
-    words_list = list()
 
-    for key, value in histogram.items():
-        #add values to new list
-        for i in range(value):
-            words_list.append(key)
 
-    return words_list
+def better_words(count, token_count, histogram):
+
+    #get total number of words from selection
+    sentence = ""
+    while count > 0:
+        #choose a random number in that range.
+        rand_value = random.randint(0, token_count - 1)
+        #keeps track of value
+        total_count = 0
+
+        #loop through list and add values to total count
+        for key, value in histogram.items():
+            
+            if rand_value <= total_count:
+                sentence += f" {key}"
+                break
+
+            total_count += value
+        #decrement count
+        count -= 1
+
+    return sentence
+
+
 
 #choose word from list a certain count of times
 def choose_words(count, words_list):
@@ -47,19 +47,25 @@ def choose_words(count, words_list):
 
     return count_histogram
 
+
+
+
 if __name__ == "__main__":
 
     file_name = sys.argv[1]
 
     words = read_file(file_name)
 
+    token_count = len(words)
+
     hist = histogram_dictonary(words)
 
-    words_list = sample_list(hist)
+    sentence = better_words(10, token_count, hist)
 
-    chosen_word_counts = choose_words(100, words_list)
+    print(sentence)
 
-    print(chosen_word_counts)
+
+    
 
 
 
