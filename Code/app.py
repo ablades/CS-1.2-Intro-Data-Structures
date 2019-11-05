@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+
 from histogram import read_file, histogram_dictonary
 from sample import better_words
 
@@ -10,4 +11,4 @@ def hello_world():
     words = read_file('hist_test.txt')
     histogram = histogram_dictonary(words)
     sentence = better_words(10, len(words), histogram)
-    return sentence
+    return render_template('index.html', sentence=sentence)

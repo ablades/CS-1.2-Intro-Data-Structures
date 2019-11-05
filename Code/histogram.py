@@ -72,7 +72,7 @@ def frequency(word, histogram):
                 return item[1]
     #Histogram is a dictonary
     elif isinstance(histogram, dict):
-        return histogram.get("word", 0)
+        return histogram.get(word, 0)
 
 def histogram_list_of_counts(words):
     histogram = list()

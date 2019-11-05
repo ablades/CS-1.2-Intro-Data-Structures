@@ -3,6 +3,7 @@
 #put the number of words requested together into a "sentence"
 #output your sentence
 import random as r
+from random import randint
 import sys
 
 def read_file():
@@ -15,7 +16,7 @@ def read_file():
 def select_words(count, words_list):
     sentence = str()
     while count > 0:
-        index = r.randint(0, len(words) - 1)
+        index = randint(0, len(words) - 1)
         
         if count == 1:
             sentence += words_list[index]
