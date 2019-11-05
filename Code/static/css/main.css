@@ -1,0 +1,21 @@
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: linear-gradient(#09c6f9, #045de9);
+}
+
+.text-color{
+    color: white;
+}
+
+.btn-xl {
+    border-
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 70px;
+}
