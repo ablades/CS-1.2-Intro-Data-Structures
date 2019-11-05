@@ -9,13 +9,18 @@ body {
     background: linear-gradient(#09c6f9, #045de9);
 }
 
-.text-color{
+.white-text{
     color: white;
 }
 
 .btn-xl {
-    border-
     padding: 10px 20px;
     font-size: 20px;
     border-radius: 70px;
 }
+
+/* Thick red border */
+hr {
+    border: 1px solid whitesmoke;
+  }
+  
