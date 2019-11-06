@@ -6,7 +6,7 @@ body {
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background: linear-gradient(#09c6f9, #045de9);
+    background: linear-gradient(#09c6f9, #effbff);
 }
 
 .white-text{
@@ -19,6 +19,18 @@ body {
     border-radius: 70px;
 }
 
+.list-group-item {
+    padding: 10px 20px;
+    margin-bottom: 25px;
+}
+
+.upvote{
+
+}
+
+.downvote{
+    
+}
 /* Thick red border */
 hr {
     border: 1px solid whitesmoke;
