@@ -58,6 +58,7 @@ class Listogram(list):
             return 0
     
     def __iter__(self):
+        """Overriding iter function"""
         return ListogramIterator(self)
   
                 

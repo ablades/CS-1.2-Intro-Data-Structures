@@ -10,7 +10,7 @@ class MarkovChain(dict):
         if words_list is not None:
             self.create_chain(words_list)
             self['start'] = Dictogram(['the'])
-            self['end'] = Dictogram()
+            self['end'] = Dictogram(['.'])
 
 
     def create_chain(self, words_list):
@@ -33,13 +33,15 @@ class MarkovChain(dict):
     def create_sentence(self, length=10):
         #chose random word from start histogram
         sampled_word = random.choice(list(self.get('start')))
-        sentence = sampled_word
+        sentence = sampled_word.capitalize()
         
         #select item in chain
         for item in range(length - 1):
 
             sampled_word = self[sampled_word].sample()
             sentence += " " + sampled_word
+
+        sentence += random.choice(list(self.get('end')))
 
         return sentence
 
