@@ -2,48 +2,52 @@ from dictogram import Dictogram
 from utils import cleanup_source
 import random
 
+class MarkovChain(dict):
 
-def create_state_histogram(words_list):
-    """
-        Create markov chain from given words list
-    """
-    state_histogram = dict()
-
-    #loop through words list
-    for index, word in enumerate(words_list):
-
-        #Check if word is in histogram already
-        if state_histogram.get(word) == None:
-            #set value to a new dictogram object
-            state_histogram[word] = Dictogram()
-
-        #Make sure list does not go out of range
-        if index + 1 < len(words_list) - 1:
-            next_word = words_list[index + 1]
-            #add next word to chain
-            state_histogram.get(word).add_count(next_word)
-
-    return state_histogram
+    def __init__(self, words_list=None):
+        super(MarkovChain, self).__init__()
+        #start and end points for chain
+        if words_list is not None:
+            self.create_chain(words_list)
+            self['start'] = Dictogram(['the'])
+            self['end'] = Dictogram()
 
 
-def create_sentence(state_histogram, length):
-    #randomly choose a word to start sentence 
-    sampled_word = random.choice(list(state_histogram))
+    def create_chain(self, words_list):
+        #loop through words list
+        for index, word in enumerate(words_list):
 
-    sentence = sampled_word
+            #Check if word is in histogram already
+            if self.get(word) == None:
+                #set value to a new dictogram object
+                self[word] = Dictogram()
 
-    for item in range(length - 1):
+            #Make sure list does not go out of range
+            if index + 1 < len(words_list) - 1:
+                next_word = words_list[index + 1]
+                #add next word to chain
+                self.get(word).add_count(next_word)
 
-        sampled_word = state_histogram[sampled_word].sample()
-        sentence += " " + sampled_word
 
-    return sentence
+
+    def create_sentence(self, length=10):
+        #chose random word from start histogram
+        sampled_word = random.choice(list(self.get('start')))
+        sentence = sampled_word
+
+        #select item in chain
+        for item in range(length - 1):
+
+            sampled_word = self[sampled_word].sample()
+            sentence += " " + sampled_word
+
+        return sentence
 
 
 if __name__ == "__main__":
     
     words_list = cleanup_source('hist_test.txt')
+    markov = MarkovChain(words_list=words_list)
 
-    state_histogram = create_state_histogram(words_list)
-
-    print(create_sentence(state_histogram, 10))
+    print(markov)
+    print(markov.create_sentence())
