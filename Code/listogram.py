@@ -4,6 +4,23 @@ from __future__ import division, print_function  # Python 2 and 3 compatibility
 import random
 
 
+class ListogramIterator:
+   ''' Iterator class for Listogram '''
+   def __init__(self, listogram):
+       # Team object reference
+       self._listogram = listogram
+       # member variable to keep track of current index
+       self._index = -1
+ 
+   def __next__(self):
+       ''''Returns the next item in the listogram '''
+       self._index += 1
+       if self._index < len(self._listogram):
+           return self._listogram[self._index]
+       # End of Iteration
+       raise StopIteration
+
+
 class Listogram(list):
     """Listogram is a histogram implemented as a subclass of the list type."""
 
@@ -39,7 +56,10 @@ class Listogram(list):
 
         else:
             return 0
-
+    
+    def __iter__(self):
+        return ListogramIterator(self)
+  
                 
 
     def __contains__(self, word):
@@ -149,3 +169,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    test = Listogram()
+
+    iterator = iter(test)
+ 
+    print(iterator)

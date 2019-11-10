@@ -34,7 +34,7 @@ class MarkovChain(dict):
         #chose random word from start histogram
         sampled_word = random.choice(list(self.get('start')))
         sentence = sampled_word
-
+        
         #select item in chain
         for item in range(length - 1):
 
