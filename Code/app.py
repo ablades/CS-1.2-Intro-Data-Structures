@@ -11,6 +11,8 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 #Database associated with Client
 db = client.get_default_database()
 
+favorites = db.favorites
+
 
 
 app = Flask(__name__)
@@ -20,6 +22,21 @@ def index():
     words = read_file('hist_test.txt')
     number_of_words = 10
     histogram = histogram_dictonary(words)
+
+    #user has favorited an item
+        #add to db
+
+    if request.args.get('favorited') is not None:
+        return """<h1>Test</h1>"""
+
+    if request.args.get('sentence length') is not None:
+        return request.args.get('sentence length')
+
+    #user has upvoted a post
+        #update count
+
+    #user has downvoted a post
+        #update count
 
     #user has inputed a number for the sentence length
     if request.method == 'POST':
