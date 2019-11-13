@@ -13,6 +13,31 @@ body {
     color: white;
 }
 
+.list-group-mine .list-group-item {
+    background-color: #f1f9fb;
+    border-top: 1px solid #0091b5;
+    border-left-color: #fff;
+    border-right-color: #fff;
+  }
+  
+  .list-group-mine .list-group-item:hover {
+    background-color: red;
+  }
+  
+
+.fav-border{
+    background-color: #6e6c6c;
+    border: tomato;
+}
+
+.up-vote{
+    color: #f9b409;
+}
+
+.down-vote{
+    color: #f9094e;
+}
+
 .btn-xl {
     padding: 10px 20px;
     font-size: 20px;

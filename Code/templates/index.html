@@ -9,7 +9,7 @@
     <!--Left Side of View Port-->
     <div class="col-md-8">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row-fluid">
           <!--Stores Content-->
           <div class="col-12 white-text">
             <div class="row">
@@ -40,7 +40,7 @@
     </div>
 
     <!--Right Side of View Port-->
-    <div class="col-md-4">
+    <div class="col-md-4 border-left">
       <div class="container-fluid">
         <div class="row "> 
           <!--Favorites Display--> 
@@ -48,14 +48,15 @@
             <h1>Favorites</h1>
             <!--Items-->
             <div class="list-group">
-                <a href="#" class="list-group-item rounded list-group-item-action flex-column align-items-start">
+                <a href="#" class="list-group-item rounded list-group-item-action flex-column align-items-start border fav-border">
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">List group item heading</h5>
                     <small>3 days ago</small>
                   </div>
                   <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                   <small>Donec id elit non mi porta.</small>
-                  <small>&#9650; &#9660;</small>
+                  <button class="up-vote btn btn-light">&#9650;</button>
+                  <button class="down-vote btn btn-light">&#9660;</button>
                 </a>
             </div>
           </div>

@@ -54,36 +54,102 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes and count one for each
+        Running time: O(N) because it will go through all of the notes everytime meaning a linear time complexity"""
+        #start at head 
+        node = self.head
+        count = 0
+        #loop until no more references
+        while node is not None:
+            count += 1
+            #advance to next node
+            node = node.next
+
+        return count
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: Append node after tail, if it exists
+        Running time: O(1) Should be because we are keeping track of the tail so it should be a constant operation"""
+        new_node = Node(item)
+
+        if self.tail is not None:
+            #set the current tails pointer to this new node
+            self.tail.next = new_node
+            #point tail to new node
+            self.tail = new_node
+        #no node in list so set tail and head
+        else:
+            self.head = new_node
+            self.tail = new_node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: Prepend node before head, if it exists
+        Running time: O(1) Should also be constant time for insertion since we keep track of the head node"""
+        new_node = Node(item)
+        #check is head exists
+        if self.head is not None:
+            #set new node to point to current head
+            new_node.next = self.head
+            #change head pointer
+            self.head = new_node
+        #no nodes in list
+        else:
+            self.head = new_node
+            self.tail = new_node
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find item where quality(item) is True
-        # TODO: Check if node's data satisfies given quality function
+        Best case running time: O(1) Item is the first item in the list will be a since look up?
+        Worst case running time: O(N) Item is last in list or not in list at all. Has to traverse entire linkedlist"""
+        node = self.head
+
+        while node is not None:
+            if quality(node.data) == True:
+                return node.data
+            else:
+                node = node.next
+
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find one whose data matches given item
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+        Best case running time: O(1) First item is deleted
+        Worst case running time: O(N) Last item is deleted. Entire list must be traversed"""
+        #set starting points
+        current_node = self.head
+        prev_node = None
+
+        #while there are more nodes in list
+        while current_node is not None:
+
+            #node with item has been found
+            if item == current_node.data:
+
+                #item we want to remove is at head
+                if prev_node is None:
+                    #make head next node
+                    self.head = current_node.next
+
+                    #head is also tail
+                    if current_node.next is None:
+                        self.tail = prev_node
+                #item we want to remove is at tail
+                elif current_node.next is None:
+                    prev_node.next = None
+                    self.tail = prev_node
+
+                #item we want to remove is not an edge case
+                else:
+                    #make previous node point to next node
+                    prev_node.next = current_node.next
+
+                return
+            #item has not been found yet advance pointers
+            else:
+                prev_node = current_node
+                current_node = current_node.next
+
+        raise ValueError(f'Item not found: {item}')
 
 
 def test_linked_list():
@@ -100,8 +166,22 @@ def test_linked_list():
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
 
-    # Enable this after implementing delete method
-    delete_implemented = False
+#---------------------- Test Prepend
+    ll2 = LinkedList()
+    print('list: {}'.format(ll2))
+
+    print('\nTesting prepend:')
+    for item in ['A', 'B', 'C']:
+        print('prepend({!r})'.format(item))
+        ll2.prepend(item)
+        print('list: {}'.format(ll2))
+
+    print('head: {}'.format(ll2.head))
+    print('tail: {}'.format(ll2.tail))
+    print('length: {}'.format(ll2.length()))
+
+#----------------------- Test Delete
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:
