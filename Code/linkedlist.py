@@ -111,6 +111,22 @@ class LinkedList(object):
 
         return None
 
+
+    def replace(old_item, new_item):
+        """Replace an old item in the list with a new item"""
+        node = self.head
+
+        while node is not None:
+
+            if node.data == old_item.data:
+                node.data = new_item.data
+                break
+
+            node = node.next
+
+            
+
+
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
         Best case running time: O(1) First item is deleted
