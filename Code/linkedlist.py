@@ -13,6 +13,23 @@ class Node(object):
         return 'Node({!r})'.format(self.data)
 
 
+class LinkedListIterator:
+   ''' Iterator class for LinkedList '''
+   def __init__(self, linkedlist):
+       # Team object reference
+       self._listogram = listogram
+       # member variable to keep track of current index
+       self._index = -1
+ 
+   def __next__(self):
+       ''''Returns the next item in the listogram '''
+       self._index += 1
+       if self._index < len(self._listogram):
+           return self._listogram[self._index]
+       # End of Iteration
+       raise StopIteration
+
+
 class LinkedList(object):
 
     def __init__(self, items=None):

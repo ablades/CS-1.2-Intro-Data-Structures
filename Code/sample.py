@@ -9,28 +9,21 @@ from histogram import read_file, histogram_dictonary
 
 
 def better_words(count, token_count, histogram):
-
-    #get total number of words from selection
     sentence = ""
-    while count > 0:
-        #choose a random number in that range.
-        rand_value = random.randint(0, token_count - 1)
-        
-        #keeps track of value
-        total_count = 0
 
-        #loop through list and add values to total count
+    for i in range(count):
+        random_value = random.randrange(0, token_count)
+        position = 0
+
         for key, value in histogram.items():
-            
-            if rand_value <= total_count:
-                sentence += f" {key}"
-                break
 
-            total_count += value
-        #decrement count
-        count -= 1
+            position += value
+
+            if position > random_value:
+                sentence += f" {key}"
 
     return sentence
+   
 
 
 
