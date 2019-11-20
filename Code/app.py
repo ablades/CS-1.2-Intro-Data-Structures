@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, url_for
 from pymongo import MongoClient
 from histogram import read_file, histogram_dictonary
+from utils import cleanup_source
+from markov import MarkovChain
 from sample import better_words
 import os
 
@@ -12,25 +14,22 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 
 favorites = db.favorites
-
+words_list = cleanup_source('hist_test.txt')
+markov_sentence = MarkovChain(words_list)
 
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    words = read_file('hist_test.txt')
-    number_of_words = 10
-    histogram = histogram_dictonary(words)
-
+    length = 10
     #user has favorited an item
         #add to db
-
     if request.args.get('favorited') is not None:
         return """<h1>Test</h1>"""
 
     if request.args.get('sentence length') is not None:
-        return request.args.get('sentence length')
+        length = int(request.args.get('sentence length'))
 
     #user has upvoted a post
         #update count
@@ -39,8 +38,7 @@ def index():
         #update count
 
     #user has inputed a number for the sentence length
-    if request.method == 'POST':
-        number_of_words = request.form.get('word_count')
 
-    sentence = better_words(number_of_words, len(words), histogram)
+    sentence = markov_sentence.create_sentence(length=length)
+
     return render_template('index.html', sentence=sentence)
