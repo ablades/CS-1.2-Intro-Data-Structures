@@ -129,14 +129,14 @@ class LinkedList(object):
         return None
 
 
-    def replace(old_item, new_item):
+    def replace(self, old_item, new_item):
         """Replace an old item in the list with a new item"""
         node = self.head
 
         while node is not None:
 
-            if node.data == old_item.data:
-                node.data = new_item.data
+            if node.data == old_item:
+                node.data = new_item
                 break
 
             node = node.next

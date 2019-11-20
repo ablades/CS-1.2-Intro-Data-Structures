@@ -89,27 +89,33 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        Running time: O(N) Item is last in traversed bucket"""
+        Running time: O(N) Item is last in traversed bucket 0(1) best case"""
 
         bucket = self.buckets[hash(key) % len(self.buckets)]
 
-        for item_key, item_value in bucket.items():
-            if item_key == key:
-                item_value = value
-                break
+        #find item with set key
+        item = bucket.find(lambda item: item[0] == key)
+
+        #insert or update
+        if item is not None:
+            bucket.replace(item, (key, value))
         else:
             bucket.append((key, value))
  
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, delete entry associated with given key
-        # TODO: Otherwise, raise error to tell user delete failed
-        # Hint: raise KeyError('Key not found: {}'.format(key))
-        pass
+        Running time: O(???) Why and under what conditions?"""
+        
+        bucket = self.buckets[hash(key) % len(self.buckets)]
+
+        item = bucket.find(lambda item: item[0] == key)
+        
+        if item is not None:
+            bucket.delete(item)
+        else:
+            raise KeyError(f'Key not found: {key}')
+
 
 
 def test_hash_table():
