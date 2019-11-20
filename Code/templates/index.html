@@ -44,23 +44,22 @@
       <div class="container-fluid">
         <div class="row "> 
           <!--Favorites Display--> 
-          <div class="col-12 white-text justify-content-end">
+          <div class="col-12 justify-content-end">
             <h1>Favorites</h1>
-            <!--Items-->
-            
-            <div class="list-group">
+            <!-- Favorited items -->
+            <ul class="list-group">
               {% for favorite in favorites %}
-                <a href="#" class="list-group-item rounded list-group-item-action flex-column align-items-start border fav-border">
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small>3 days ago</small>
+                <li class="list-group-item d-flex justify-content-between align-items-center row">
+                  <div class="col-md-8">
+                    <span> {{favorite.sentence}} </span>
                   </div>
-                  <p class="mb-1">{{favorite.sentence}}</small>
-                  <button class="up-vote btn btn-light">&#9650; {{favorite.upvotes}}</button>
-                  <button class="down-vote btn btn-light">&#9660; {{favorite.downvotes}}</button>
-                </a>
+                  <div class="col-md-4 justify-content-end">
+                    <button class="up-vote btn btn-light">&#9650; {{favorite.upvotes}}</button>
+                    <button class="down-vote btn btn-light">&#9660; {{favorite.downvotes}}</button>
+                  </div>
+                </li>
               {% endfor %}
-            </div>
+              </ul>
           </div>
         </div>
       </div>
