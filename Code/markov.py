@@ -12,6 +12,8 @@ class MarkovChain(dict):
             self['start'] = Dictogram(['the'])
             self['end'] = Dictogram(['.'])
 
+        self.sentence = None
+
 
     def create_chain(self, words_list):
         #loop through words list
@@ -42,7 +44,8 @@ class MarkovChain(dict):
             sentence += " " + sampled_word
 
         sentence += random.choice(list(self.get('end')))
-
+        self.sentence = sentence
+        
         return sentence
 
 

@@ -13,7 +13,8 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 #Database associated with Client
 db = client.get_default_database()
 
-favorites = db.favorites
+favorited = db.favorited
+
 words_list = cleanup_source('hist_test.txt')
 markov_sentence = MarkovChain(words_list)
 
@@ -25,10 +26,18 @@ def index():
     length = 10
     #user has favorited an item
         #add to db
-    if request.args.get('favorited') is not None:
-        return """<h1>Test</h1>"""
+    if request.args.get('favorite') is not None:
+        favorited.insert_one(
+                            {'sentence': markov_sentence.sentence,
+                             'upvotes': 0,
+                             'downvotes': 0
+                            })
+        print(f'Favorited ID {favorited.inserted_id}')
+        # TODO: Add toast message saying it was inserted
 
-    if request.args.get('sentence length') is not None:
+
+    #set length to user inputed length
+    if request.args.get('sentence length'):
         length = int(request.args.get('sentence length'))
 
     #user has upvoted a post
@@ -41,4 +50,12 @@ def index():
 
     sentence = markov_sentence.create_sentence(length=length)
 
-    return render_template('index.html', sentence=sentence)
+    favorited_list = favorited.find()
+    print(favorited_list)
+
+    return render_template('index.html', sentence=sentence, favorites=list(favorited_list))
+
+
+
+    if __name__ == '__main__':
+        app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

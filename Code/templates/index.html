@@ -22,7 +22,7 @@
                     <button type="submit" name="generate" class="btn btn-light">Generate! &#x2606;</button>
                   </div>
                   <div class="col-xs-3 p-2">
-                    <button type="submit" name="favorited" class="btn btn-light">&#x2606; Favorite</button>
+                    <button type="submit" name="favorite" class="btn btn-light">&#x2606; Favorite</button>
                     </div>
 
                     <div class="col-xs-4 form-inline p-2">
@@ -47,17 +47,19 @@
           <div class="col-12 white-text justify-content-end">
             <h1>Favorites</h1>
             <!--Items-->
+            
             <div class="list-group">
+              {% for favorite in favorites %}
                 <a href="#" class="list-group-item rounded list-group-item-action flex-column align-items-start border fav-border">
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">List group item heading</h5>
                     <small>3 days ago</small>
                   </div>
-                  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                  <small>Donec id elit non mi porta.</small>
-                  <button class="up-vote btn btn-light">&#9650;</button>
-                  <button class="down-vote btn btn-light">&#9660;</button>
+                  <p class="mb-1">{{favorite.sentence}}</small>
+                  <button class="up-vote btn btn-light">&#9650; {{favorite.upvotes}}</button>
+                  <button class="down-vote btn btn-light">&#9660; {{favorite.downvotes}}</button>
                 </a>
+              {% endfor %}
             </div>
           </div>
         </div>
