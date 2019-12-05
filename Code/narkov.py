@@ -41,7 +41,9 @@ class NarkovChain(dict):
                 next_state = ' '.join(words_list[start:end])
                 #add next state to current state
                 self.get(state).add_count(next_state)
-  
+
+                
+    #TODO: Make sentence creation functional with narkov
     def create_sentence(self, length=10):
         #chose random word from start histogram
         sampled_word = random.choice(list(self.get('start')))
