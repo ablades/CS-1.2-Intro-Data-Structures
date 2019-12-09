@@ -26,7 +26,7 @@ class HashTable(object):
 
     def keys(self):
         """Return a list of all keys in this hash table.
-        Running time: O(N^2) All buckets must be accessed and each value in every bucket. making it quadratic"""
+        Running time: 0(b + l ) -> O(N) Each item is traversed"""
         # Collect all keys in each bucket
         all_keys = []
         for bucket in self.buckets:
@@ -36,7 +36,7 @@ class HashTable(object):
 
     def values(self):
         """Return a list of all values in this hash table.
-        Running time: O(N^2) Same as above"""
+        Running time: 0(b + l) -> O(N) Each item is traversed"""
         all_values = []
         for bucket in self.buckets:
             for key, value in bucket.items():
@@ -46,7 +46,7 @@ class HashTable(object):
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
-        TODO: Running time: O(N^2) All buckets and all items in buckets accessed again"""
+        Running time: O(b + l) --> O(N) Accesses every item in all buckets"""
         # Collect all pairs of key-value entries in each bucket
         all_items = []
         for bucket in self.buckets:
@@ -55,7 +55,7 @@ class HashTable(object):
 
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        Running time: O(N^2) Still the same :)"""
+        Running time: O(b + l) --> O(N) Accesses all items in each bucket"""
         item_count = 0
         for bucket in self.buckets:
             for item in bucket.items():
@@ -89,7 +89,8 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        Running time: O(N + N) - > O(N) find and replace both iterate through the list"""
+        Running time: Average:(O(b + l) -> traversal, O(1) -> insertion) --> O(N) find and replace both iterate through the list
+        Best Case: O(1) bucket has one item"""
 
         bucket = self.buckets[hash(key) % len(self.buckets)]
 

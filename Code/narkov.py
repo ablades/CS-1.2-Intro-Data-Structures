@@ -42,7 +42,7 @@ class NarkovChain(dict):
                 #add next state to current state
                 self.get(state).add_count(next_state)
 
-                
+
     #TODO: Make sentence creation functional with narkov
     def create_sentence(self, length=10):
         #chose random word from start histogram
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     words_list = cleanup_source('hist_test.txt')
     #test orders 2 through 5
-    for order in range(2,6):
+    for order in range(2,99):
         print(f"Markov Chain order: {order}")
         print(NarkovChain(order, words_list=words_list))
         print("----------------")
