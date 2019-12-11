@@ -1,6 +1,7 @@
 from dictogram import Dictogram
 from utils import cleanup_source
 import random
+import re
 
 class NarkovChain(dict):
 
@@ -10,9 +11,9 @@ class NarkovChain(dict):
         self.order = order
 
         if words_list is not None:
+            self['start'] = Dictogram()
             self.create_nth_chain(words_list)
-            self['start'] = Dictogram(['the'])
-            self['end'] = Dictogram(['.'])
+            #self['end'] = Dictogram(['.'])
 
         self.sentence = None
 
@@ -23,13 +24,20 @@ class NarkovChain(dict):
         end = self.order
 
         while end <= len(words_list) :
-
             #take a slice
             state = ' '.join(words_list[start:end])
+
             #check if it is in histogram already
             if self.get(state) == None:
                 #not in histogram so add it
                 self[state] = Dictogram()
+
+
+            #check if token should go in start state
+            #checks for capitalization
+            if re.match('[A-Z]', state) is not None:
+                self.get('start').add_count(state)
+
 
             #increment state
             start += 1
@@ -38,9 +46,10 @@ class NarkovChain(dict):
             #bounds check
             if end <= len(words_list):
                 #look at next state
-                next_state = ' '.join(words_list[start:end])
+                next_state = ' '.join(words_list[end-1:end])
                 #add next state to current state
                 self.get(state).add_count(next_state)
+
 
 
     #TODO: Make sentence creation functional with narkov
@@ -63,11 +72,15 @@ class NarkovChain(dict):
 
 if __name__ == "__main__":
     
-    words_list = cleanup_source('hist_test.txt')
+    #words_list = cleanup_source('hist_test.txt')
+    words_list = cleanup_source('civildisobedience.txt')
+    #print(words_list)
     #test orders 2 through 5
-    for order in range(2,99):
+    
+    for order in range(2,3):
         print(f"Markov Chain order: {order}")
-        print(NarkovChain(order, words_list=words_list))
+        narkov = NarkovChain(order, words_list=words_list)
+        print(narkov)
         print("----------------")
-
+        print(narkov['start'])
     #print(narkov.create_sentence())
