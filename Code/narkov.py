@@ -52,22 +52,54 @@ class NarkovChain(dict):
 
 
 
-    #TODO: Make sentence creation functional with narkov
-    def create_sentence(self, length=10):
-        #chose random word from start histogram
-        sampled_word = random.choice(list(self.get('start')))
-        sentence = sampled_word.capitalize()
-        
-        #select item in chain
-        for item in range(length - 1):
+    def create_sentence(self):
+        #chose random word from start dictogram
+        sentence_list = list()
+        sentence_list.extend(self['start'].sample().split(' ', 1))
 
-            sampled_word = self[sampled_word].sample()
-            sentence += " " + sampled_word
+        print(self['start'])
+        print("----------------")
+        print(sentence_list)
 
-        sentence += random.choice(list(self.get('end')))
-        self.sentence = sentence
+        stop_token_hit = False
         
+        #loop until we hit a stop token
+        while stop_token_hit is False:
+
+            #look at current sentence
+            end = len(sentence_list)
+
+            #take n last words 
+            state = ' '.join(sentence_list[end - self.order:end])
+            print('-----')
+            print(state)
+
+            #sample the state and add to list
+            sampled_word = self.get(state).sample()
+
+            #check for a stop token
+            if re.search('[$\.\?\!]', sampled_word) is not None:
+                stop_token_hit = True
+
+            sentence_list.append(sampled_word)
+
+        sentence = ' '.join(sentence_list)
+
         return sentence
+
+
+
+        
+        # #select item in chain
+        # for item in range(length - 1):
+
+        #     sampled_word = self[sampled_word].sample()
+        #     sentence += " " + sampled_word
+
+        # sentence += random.choice(list(self.get('end')))
+        # self.sentence = sentence
+        
+        #return sentence
 
 
 if __name__ == "__main__":
@@ -83,4 +115,4 @@ if __name__ == "__main__":
         print(narkov)
         print("----------------")
         print(narkov['start'])
-    #print(narkov.create_sentence())
+        print(narkov.create_sentence())
