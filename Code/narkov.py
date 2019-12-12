@@ -57,10 +57,6 @@ class NarkovChain(dict):
         sentence_list = list()
         sentence_list.extend(self['start'].sample().split(' ', 1))
 
-        print(self['start'])
-        print("----------------")
-        print(sentence_list)
-
         stop_token_hit = False
         
         #loop until we hit a stop token
@@ -111,14 +107,27 @@ if __name__ == "__main__":
     #print(words_list)
 
     alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
+    bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
+    caroline_corpus = cleanup_source('static/main_character_scripts/Caroline.txt')
+    elena_corpus = cleanup_source('static/main_character_scripts/Elena.txt')
+    jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
+    stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
+    damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
+
     #test orders 2 through 5
+
+    # alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
+    # print(alaric_narkov.create_sentence())
+
+    damon_narkov = NarkovChain(2, words_list=damon_corpus)
+    print(damon_narkov.create_sentence())
 
     # Regex for removing a date from elon tweet - ([A-z]+\s[0-9]+\,\s[0-9]{4})
     
     #for order in range():
-    print( f"Markov Chain order: 4")
-    narkov = NarkovChain(3, words_list=words_list)
-    print(narkov)
-    print("----------------")
-    print(narkov['start'])
-    print(narkov.create_sentence())
+    # print( f"Markov Chain order: 4")
+    # narkov = NarkovChain(3, words_list=words_list)
+    # print(narkov)
+    # print("----------------")
+    # print(narkov['start'])
+    # print(narkov.create_sentence())
