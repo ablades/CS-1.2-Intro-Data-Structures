@@ -71,17 +71,19 @@ class NarkovChain(dict):
 
             #take n last words 
             state = ' '.join(sentence_list[end - self.order:end])
-            print('-----')
-            print(state)
 
             #sample the state and add to list
-            sampled_word = self.get(state).sample()
-
-            #check for a stop token
-            if re.search('[$\.\?\!]', sampled_word) is not None:
+            if self.get(state) is None:
+                sentence_list.append('.')
                 stop_token_hit = True
+            else:
+                sampled_word = self.get(state).sample()
 
-            sentence_list.append(sampled_word)
+                #check for a stop token
+                if re.search('[$\.\?\!]', sampled_word) is not None:
+                    stop_token_hit = True
+
+                sentence_list.append(sampled_word)
 
         sentence = ' '.join(sentence_list)
 
@@ -108,11 +110,13 @@ if __name__ == "__main__":
     words_list = cleanup_source('civildisobedience.txt')
     #print(words_list)
     #test orders 2 through 5
+
+    # Regex for removing a date from elon tweet - ([A-z]+\s[0-9]+\,\s[0-9]{4})
     
-    for order in range(2,3):
-        print(f"Markov Chain order: {order}")
-        narkov = NarkovChain(order, words_list=words_list)
-        print(narkov)
-        print("----------------")
-        print(narkov['start'])
-        print(narkov.create_sentence())
+    #for order in range():
+    print( f"Markov Chain order: 4")
+    narkov = NarkovChain(3, words_list=words_list)
+    print(narkov)
+    print("----------------")
+    print(narkov['start'])
+    print(narkov.create_sentence())

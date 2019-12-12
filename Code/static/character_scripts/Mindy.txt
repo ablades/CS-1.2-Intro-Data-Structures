@@ -1,0 +1,4 @@
+ You have a visitor.
+ He said his name is Mikael.
+ Sure.
+ Is everything okay?
