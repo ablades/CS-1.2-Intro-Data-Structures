@@ -109,6 +109,8 @@ if __name__ == "__main__":
     #words_list = cleanup_source('hist_test.txt')
     words_list = cleanup_source('civildisobedience.txt')
     #print(words_list)
+
+    alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
     #test orders 2 through 5
 
     # Regex for removing a date from elon tweet - ([A-z]+\s[0-9]+\,\s[0-9]{4})

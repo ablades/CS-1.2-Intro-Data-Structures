@@ -17,10 +17,6 @@ def cleanup_source(file_name):
 
     word_list = []
     for word in words:
-        word = word.strip("@'/")
         word_list.append(word)
 
     return word_list
-
-#
-#    pass
