@@ -52,7 +52,7 @@ def index():
     # favorited_list = favorited.find()
     # print(favorited_list)
 
-    # return render_template('index.html', sentence=sentence, favorites=list(favorited_list))
+    return render_template('tvd.html')#, sentence=sentence, favorites=list(favorited_list))
 
 
 
