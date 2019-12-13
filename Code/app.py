@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from histogram import read_file, histogram_dictonary
 from utils import cleanup_source
@@ -77,13 +77,7 @@ narkov_sentence = NarkovChain(words_list)
 app = Flask(__name__)
 
 
-alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
-bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
-caroline_corpus = cleanup_source('static/main_character_scripts/Caroline.txt')
-elena_corpus = cleanup_source('static/main_character_scripts/Elena.txt')
-jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
-stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
-damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
+
 
 damon_narkov = NarkovChain(2, words_list=damon_corpus)
 bonnie_narkov = NarkovChain(2, words_list=bonnie_corpus)
@@ -99,20 +93,21 @@ def index():
     #Select a character
     if request.form.get('char') is not None:
         character_name = str(request.form.get('char'))
+        character = db.characters.find_one({"name": character_name})
 
-        return redirect(url_for('characters_page',name=character_name))
+        return render_template('characterpage.html',character=character, sentence="")
 
     return render_template('tvd.html')
 
 @app.route('/character/<name>', methods=['GET', 'POST'])
 def characters_page(name):
     character = db.characters.find_one({"name": name})
-
-    #user wants a setence/favorited
+    #user wants a sentence/favorited
     if request.method == 'POST':
-        char_name = name
+        char_name = character['name']
         sentence = str(request.form.get('sentence'))
         order = int(request.form.get('order'))
+        corpus = character['corpus']
         #user wants to favorite current sentence
 
         if request.form.get('favorite') is not None:
@@ -120,11 +115,14 @@ def characters_page(name):
             "order": order,
             "sentence": sentence
             })
-            return redirect(url_for('characters_page',name=char_name,sentence=sentence))
+            return render_template('characterpage.html',character=character, sentence=sentence)
         #user wants a sentence
         else:
+            #build sentence with order and corpus
+            sentence = NarkovChain(order,corpus).create_sentence()
+            return render_template('characterpage.html',character=character, sentence=sentence)
 
-            return redirect(url_for('characters_page',name=char_name))
+    return render_template('characterpage.html', character=character, sentence="")
 
 
 

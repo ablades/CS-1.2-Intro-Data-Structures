@@ -15,7 +15,7 @@
                   <h1>{{character['name']}}</h1>
                     <!--Portrait-->
                     <button class="btn-fluid rounded-pill" type="button">
-                        <img src="{{character['img_path']}}" class="img-fluid rounded-pill" alt="Responsive image">
+                        <img src="{{ character['img_path'] }}" class="img-fluid rounded-pill" alt="Responsive image">
                     </button>
                 </div>
                 <!-- Middle of viewport -->
@@ -27,26 +27,27 @@
                     </div>
                     <div class="row text-center">
                       <div class="col">
-                        <h2>sentence</h2>
+                        <h2>{{sentence}}</h2>
                       </div>
                   </div>
-                  <div class="row justify-content-center">
-                    <div class="col">
-                        <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Generate Sentence</button>
+                  <form action="character/{{character['name']}}" method="POST">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Generate Sentence</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
+                        </div>
+                        <div class="col">
+                            <span>
+                                <label class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">
+                                    Chain Order: 
+                                    <input class="rounded-pill" type="number" min="1" max="10" value="3" /> 
+                                </label>
+                            </span>
+                        </div>
                     </div>
-                    <div class="col">
-                        <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
-                    </div>
-                    <div class="col">
-                        <span>
-                            <label class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">
-                                Chain Order: 
-                                <input class="rounded-pill" type="number" min="1" max="10" value="3" /> 
-                            </label>
-                        </span>
-                    </div>
-                  </div>
-                
+                </form>
                 </div>
                 </div>
           </div>
