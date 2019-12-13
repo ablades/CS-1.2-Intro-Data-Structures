@@ -5,6 +5,7 @@ body {
     background: -webkit-gradient(linear, left top, left bottom, from(#09c6f9), to(#effbff)) fixed;
 }
 
+
 .white-text{
     color: white;
 }
@@ -50,15 +51,9 @@ body {
     margin-bottom: 25px;
 }
 
-.upvote{
-
-}
-
-.downvote{
-    
-}
 /* Thick red border */
 hr {
     border: 1px solid whitesmoke;
   }
+
   

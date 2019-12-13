@@ -119,7 +119,8 @@ if __name__ == "__main__":
     # alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
     # print(alaric_narkov.create_sentence())
 
-    damon_narkov = NarkovChain(2, words_list=damon_corpus)
+    damon_narkov = NarkovChain(10, words_list=damon_corpus)
+    #print(damon_narkov)
     print(damon_narkov.create_sentence())
 
     # Regex for removing a date from elon tweet - ([A-z]+\s[0-9]+\,\s[0-9]{4})
