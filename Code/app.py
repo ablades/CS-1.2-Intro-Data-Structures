@@ -13,7 +13,56 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 #Database associated with Client
 db = client.get_default_database()
 
-favorited = db.favorited
+favorites = db.favorited
+characters = db.characters
+characters.drop()
+
+characters.insert_one(
+    {"name": "Damon Salvatore",
+    "img_path": "static/imgs/damon_still.jpg",
+    }
+    )
+characters.insert_one(
+    {"name": "Alaric Saltzman",
+    "img_path": "static/imgs/alaric_still.jpg"
+    }
+    )
+characters.insert_one(
+    {"name": "Caroline Forbes",
+    "img_path": "static/imgs/caroline_still.jpg"
+    }
+    )
+characters.insert_one(
+    {"name": "Bonnie Bennett",
+    "img_path": "static/imgs/bonnie_still.jpg"
+    }
+    )
+characters.insert_one(
+    {"name": "Elena Gilbert",
+    "img_path": "static/imgs/elena_still.jpg"
+    }
+    )
+characters.insert_one(
+    {"name": "Jeremy Gilbert",
+    "img_path": "static/imgs/jeremy_still.jpg"
+    }
+    )
+characters.insert_one(
+    {"name": "Stefan Salvatore",
+    "img_path": "static/imgs/stefan_still.jpg"
+    }
+    )
+
+
+
+# result=database.people_collection.insert_one({"name" : "Joe Drumgoole"})
+# >>> result.inserted_id
+# ObjectId('5b7d297cc718bc133212aa94')
+# >>> result.acknowledged
+# True
+# >>> people_collection.find_one()
+# {'_id': ObjectId('5b62e6f8c3b498fbfdc1c20c'), 'name': 'Joe Drumgoole'}
+True
 
 words_list = cleanup_source('hist_test.txt')
 narkov_sentence = NarkovChain(words_list)
@@ -41,23 +90,11 @@ alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    character_name = request.form.get('char')
+    if request.form.get('char') is not None:
+        character_name = str(request.form.get('char'))
+        character = db.characters.find_one({"name": character_name})
 
-    if character_name == "stefan":
-        return render_template('characterpage.html')
-    elif character_name == "caroline":
-        pass
-    elif character_name == "elena":
-        pass
-    elif character_name == "jeremy":
-        pass
-    elif character_name == "damon":
-        pass
-    elif character_name == "alaric":
-        pass
-    elif character_name == "bonnie":
-        pass
-        return render_template('characterpage.html')
+        return render_template('characterpage.html', character=character)
     #length = 10
     #user has favorited an item
         #add to db
@@ -91,6 +128,6 @@ def index():
 
 
 
-    if __name__ == '__main__':
+if __name__ == '__main__':
 
-        app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
