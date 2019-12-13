@@ -8,9 +8,8 @@ import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/csmarkov')
 
-client = MongoClient(host=host)
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/narkov')
 client = MongoClient(host=f'{host}?retryWrites=false')
-#Database associated with Client
 db = client.get_default_database()
 
 favorites = db.favorited
