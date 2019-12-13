@@ -53,16 +53,13 @@ characters.insert_one(
     }
     )
 
+favorites.insert_one(
+    {"char_name": "Damon Salvatore",
+    "order": int(2),
+    "sentence": "sentence",
+    }
+    )
 
-
-# result=database.people_collection.insert_one({"name" : "Joe Drumgoole"})
-# >>> result.inserted_id
-# ObjectId('5b7d297cc718bc133212aa94')
-# >>> result.acknowledged
-# True
-# >>> people_collection.find_one()
-# {'_id': ObjectId('5b62e6f8c3b498fbfdc1c20c'), 'name': 'Joe Drumgoole'}
-True
 
 words_list = cleanup_source('hist_test.txt')
 narkov_sentence = NarkovChain(words_list)
@@ -95,6 +92,24 @@ def index():
         character = db.characters.find_one({"name": character_name})
 
         return render_template('characterpage.html', character=character)
+
+    #user wants a setence/favorited
+    if request.method == 'POST':
+        #user wants to favorite current sentence
+        if request.form.get('favorite') is not None:
+            char_name = str(request.form.get('name'))
+            sentence = str(request.form.get('sentence'))
+            order = int(request.form.get('order'))
+            character = db.characters.find_one({"name": char_name})
+            favorites.insert_one({"char_name": "Damon Salvatore",
+            "order": order,
+            "sentence": sentence
+            })
+        #user wants a sentence
+        else:
+            return render_template('characterpage.html', character=character, )
+
+        
     #length = 10
     #user has favorited an item
         #add to db
