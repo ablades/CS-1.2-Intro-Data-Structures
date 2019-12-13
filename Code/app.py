@@ -21,15 +21,43 @@ narkov_sentence = NarkovChain(words_list)
 
 app = Flask(__name__)
 
-# @app.route('/', methods=['GET', 'POST'])
-# def tvd():
 
+alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
+bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
+caroline_corpus = cleanup_source('static/main_character_scripts/Caroline.txt')
+elena_corpus = cleanup_source('static/main_character_scripts/Elena.txt')
+jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
+stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
+damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
+
+damon_narkov = NarkovChain(2, words_list=damon_corpus)
+bonnie_narkov = NarkovChain(2, words_list=bonnie_corpus)
+elena_narkov = NarkovChain(2, words_list=elena_corpus)
+caroline_narkov = NarkovChain(2, words_list=caroline_corpus)
+jeremy_narkov = NarkovChain(2, words_list=jeremy_corpus)
+stefan_narkov = NarkovChain(2, words_list=stefan_corpus)
+alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    print(request.form.get('char'))
-       # return render_template('characterpage.html')
+    character_name = request.form.get('char')
+
+    if character_name == "stefan":
+        return render_template('characterpage.html')
+    elif character_name == "caroline":
+        pass
+    elif character_name == "elena":
+        pass
+    elif character_name == "jeremy":
+        pass
+    elif character_name == "damon":
+        pass
+    elif character_name == "alaric":
+        pass
+    elif character_name == "bonnie":
+        pass
+        return render_template('characterpage.html')
     #length = 10
     #user has favorited an item
         #add to db
@@ -64,20 +92,5 @@ def index():
 
 
     if __name__ == '__main__':
-        alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
-        bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
-        caroline_corpus = cleanup_source('static/main_character_scripts/Caroline.txt')
-        elena_corpus = cleanup_source('static/main_character_scripts/Elena.txt')
-        jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
-        stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
-        damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
-
-        damon_narkov = NarkovChain(2, words_list=damon_corpus)
-        bonnie_narkov = NarkovChain(2, words_list=bonnie_corpus)
-        elena_narkov = NarkovChain(2, words_list=elena_corpus)
-        caroline_narkov = NarkovChain(2, words_list=caroline_corpus)
-        jeremy_narkov = NarkovChain(2, words_list=jeremy_corpus)
-        stefan_narkov = NarkovChain(2, words_list=stefan_corpus)
-        alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
 
         app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

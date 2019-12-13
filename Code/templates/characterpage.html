@@ -2,6 +2,7 @@
 
 
 {% block content %}
+<br>
 <div class="row">
     <!--Left Side of View Port-->
     <div class="col-md-8">
@@ -10,27 +11,21 @@
           <!--Stores Content-->
           <div class="col-12 white-text">
             <div class="row">
-              <div class="col-md-4">
-                  <h1>Tweet Generator</h1>
-              </div>
-              <div class="col-md-8 form-group">
-              <form action='/' class="row justify-content-center">
-                  <div class="col-xs-3 p-2">
-                    <button type="submit" name="generate" class="btn btn-light">Generate! &#x2606;</button>
-                  </div>
-                  <div class="col-xs-3 p-2">
-                    <button type="submit" name="favorite" class="btn btn-light">&#x2606; Favorite</button>
-                    </div>
-
-                    <div class="col-xs-4 form-inline p-2">
-                    <label for="sentence">Sentence Length: </label>
-                    <input type="number" name="sentence length"class="form-control" id="sentence" placeholder="10">
-                    </div>
-                </form>
+                <div class="col-md-4 text-center">
+                  <h1>Stefan Salvatore</h1>
+                    <!--Portrait-->
+                    <button class="btn-fluid rounded-pill" type="submit" value="stefan" name="char">
+                        <img src="static/imgs/stefan_still.jpg" class="img-fluid rounded-pill" alt="Responsive image">
+                    </button>
+                </div>
+                <!-- Middle of viewport -->
+              <div class="col-md-8 text-center">
+                <h1>Col 8</h1>
+                <h2>sentence</h2>
+                <button type="button" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-primary">Primary</button>
                 </div>
                 </div>
-                <hr>
-                <h2>{{sentence}}</h2>
           </div>
         </div>
       </div>
@@ -45,21 +40,21 @@
             <div class="row white-text">
               <h1>Favorites</h1>
             </div>
-            <hr>
             <!-- Favorited items -->
             <ul class="list-group">
-              {% for favorite in favorites %}
-                <li class="list-group-item d-flex justify-content-between align-items-center border-change rounded-pill row">
-                  <div class="col-md-8">
-                    <span> {{favorite.sentence}} </span>
-                  </div>
-                  <div class="col-md-4 justify-content-end">
-                    <button class="up-vote btn btn-light">&#9650; {{favorite.upvotes}}</button>
-                    <button class="down-vote btn btn-light">&#9660; {{favorite.downvotes}}</button>
-                  </div>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Cras justo odio
+                  <span class="badge badge-primary badge-pill">Chain Order: 14</span>
                 </li>
-              {% endfor %}
-            </ul>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Dapibus ac facilisis in
+                  <span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Morbi leo risus
+                  <span class="badge badge-primary badge-pill">1</span>
+                </li>
+              </ul>
           </div>
         </div>
       </div>
