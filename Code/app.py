@@ -102,7 +102,7 @@ def index():
 @app.route('/character/<name>', methods=['GET', 'POST'])
 def characters_page(name):
     character = db.characters.find_one({"name": name})
-    favorites = list(db.favorited.find({'name': name}))
+    favorites = list(db.favorited.find({'char_name': name}))
     #user wants a sentence/favorited
     if request.method == 'POST':
         char_name = character['name']
@@ -112,17 +112,20 @@ def characters_page(name):
         #user wants to favorite current sentence
 
         if request.form.get('favorite') is not None:
-            favorites.insert_one({"char_name": char_name,
+            db.favorited.insert_one({"char_name": char_name,
             "order": order,
             "sentence": sentence
             })
+            favorites = list(db.favorited.find({'char_name': name}))
             return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
         #user wants a sentence
         else:
             #build sentence with order and corpus
             sentence = NarkovChain(order,corpus).create_sentence()
+            favorites = list(db.favorited.find({'char_name': name}))
             return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
 
+    favorites = list(db.favorited.find({'char_name': name}))
     return render_template('characterpage.html', character=character, sentence="", favorites=favorites)
 
 
