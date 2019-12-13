@@ -101,7 +101,7 @@ def index():
             sentence = str(request.form.get('sentence'))
             order = int(request.form.get('order'))
             character = db.characters.find_one({"name": char_name})
-            favorites.insert_one({"char_name": "Damon Salvatore",
+            favorites.insert_one({"char_name": char_name,
             "order": order,
             "sentence": sentence
             })
