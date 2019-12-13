@@ -27,6 +27,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    print(request.form.get('char'))
+       # return render_template('characterpage.html')
     #length = 10
     #user has favorited an item
         #add to db
