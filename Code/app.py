@@ -102,6 +102,7 @@ def index():
 @app.route('/character/<name>', methods=['GET', 'POST'])
 def characters_page(name):
     character = db.characters.find_one({"name": name})
+    favorites = list(db.favorited.find({'name': name}))
     #user wants a sentence/favorited
     if request.method == 'POST':
         char_name = character['name']
@@ -115,14 +116,14 @@ def characters_page(name):
             "order": order,
             "sentence": sentence
             })
-            return render_template('characterpage.html',character=character, sentence=sentence)
+            return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
         #user wants a sentence
         else:
             #build sentence with order and corpus
             sentence = NarkovChain(order,corpus).create_sentence()
-            return render_template('characterpage.html',character=character, sentence=sentence)
+            return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
 
-    return render_template('characterpage.html', character=character, sentence="")
+    return render_template('characterpage.html', character=character, sentence="", favorites=favorites)
 
 
 
