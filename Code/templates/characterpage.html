@@ -15,10 +15,11 @@
                   <h1>{{character['name']}}</h1>
                     <!--Portrait-->
                     <button class="btn-fluid rounded-pill" type="button">
-                        <img src="{{ character['img_path'] }}" class="img-fluid rounded-pill" alt="Responsive image">
+                        
                     </button>
                 </div>
                 <!-- Middle of viewport -->
+            <form action="/character/{{character['name']}}" method="POST">
               <div class="col-md-8 text-center">
                   <div class="row text-center">
                       <div class="col">
@@ -27,22 +28,22 @@
                     </div>
                     <div class="row text-center">
                       <div class="col">
+                        <input type="hidden" name="sentence" value="{{sentence}}" />
                         <h2>{{sentence}}</h2>
                       </div>
                   </div>
-                  <form action="character/{{character['name']}}" method="POST">
                     <div class="row justify-content-center">
                         <div class="col">
                             <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Generate Sentence</button>
                         </div>
                         <div class="col">
-                            <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
+                            <button type="submit" name="favorite" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
                         </div>
                         <div class="col">
                             <span>
                                 <label class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">
                                     Chain Order: 
-                                    <input class="rounded-pill" type="number" min="1" max="10" value="3" /> 
+                                    <input class="rounded-pill" type="number" name="order" min="1" max="10" value="3" /> 
                                 </label>
                             </span>
                         </div>
