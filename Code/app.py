@@ -21,6 +21,10 @@ narkov_sentence = NarkovChain(words_list)
 
 app = Flask(__name__)
 
+# @app.route('/', methods=['GET', 'POST'])
+# def tvd():
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     #length = 10
