@@ -16,47 +16,56 @@ db = client.get_default_database()
 favorites = db.favorited
 characters = db.characters
 characters.drop()
+favorites.drop()
+
+alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
+bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
+caroline_corpus = cleanup_source('static/main_character_scripts/Caroline.txt')
+elena_corpus = cleanup_source('static/main_character_scripts/Elena.txt')
+jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
+stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
+damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
 
 characters.insert_one(
     {"name": "Damon Salvatore",
     "img_path": "static/imgs/damon_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Damon.txt')
     }
     )
 characters.insert_one(
     {"name": "Alaric Saltzman",
-    "img_path": "static/imgs/alaric_still.jpg"
+    "img_path": "static/imgs/alaric_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Alaric.txt')
     }
     )
 characters.insert_one(
     {"name": "Caroline Forbes",
-    "img_path": "static/imgs/caroline_still.jpg"
+    "img_path": "static/imgs/caroline_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Caroline.txt')
     }
     )
 characters.insert_one(
     {"name": "Bonnie Bennett",
-    "img_path": "static/imgs/bonnie_still.jpg"
+    "img_path": "static/imgs/bonnie_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Bonnie.txt')
     }
     )
 characters.insert_one(
     {"name": "Elena Gilbert",
-    "img_path": "static/imgs/elena_still.jpg"
+    "img_path": "static/imgs/elena_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Elena.txt')
     }
     )
 characters.insert_one(
     {"name": "Jeremy Gilbert",
-    "img_path": "static/imgs/jeremy_still.jpg"
+    "img_path": "static/imgs/jeremy_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Jeremy.txt')
     }
     )
 characters.insert_one(
     {"name": "Stefan Salvatore",
-    "img_path": "static/imgs/stefan_still.jpg"
-    }
-    )
-
-favorites.insert_one(
-    {"char_name": "Damon Salvatore",
-    "order": int(2),
-    "sentence": "sentence",
+    "img_path": "static/imgs/stefan_still.jpg",
+    "corpus": cleanup_source('static/main_character_scripts/Stefan.txt')
     }
     )
 
@@ -87,59 +96,35 @@ alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
+    #Select a character
     if request.form.get('char') is not None:
         character_name = str(request.form.get('char'))
-        character = db.characters.find_one({"name": character_name})
 
-        return render_template('characterpage.html', character=character)
+        return redirect(url_for('characters_page',name=character_name))
+
+    return render_template('tvd.html')
+
+@app.route('/character/<name>', methods=['GET', 'POST'])
+def characters_page(name):
+    character = db.characters.find_one({"name": name})
 
     #user wants a setence/favorited
     if request.method == 'POST':
+        char_name = name
+        sentence = str(request.form.get('sentence'))
+        order = int(request.form.get('order'))
         #user wants to favorite current sentence
+
         if request.form.get('favorite') is not None:
-            char_name = str(request.form.get('name'))
-            sentence = str(request.form.get('sentence'))
-            order = int(request.form.get('order'))
-            character = db.characters.find_one({"name": char_name})
             favorites.insert_one({"char_name": char_name,
             "order": order,
             "sentence": sentence
             })
+            return redirect(url_for('characters_page',name=char_name,sentence=sentence))
         #user wants a sentence
         else:
-            return render_template('characterpage.html', character=character, )
 
-        
-    #length = 10
-    #user has favorited an item
-        #add to db
-    # if request.args.get('favorite') is not None:
-    #     favorited.insert_one(
-    #                         {'sentence': markov_sentence.sentence,
-    #                          'upvotes': 0,
-    #                          'downvotes': 0
-    #                         })
-    #     print(f'Favorited ID {favorited.inserted_id}')
-
-
-    # #set length to user inputed length
-    # if request.args.get('sentence length'):
-    #     length = int(request.args.get('sentence length'))
-
-    # #user has upvoted a post
-    #     #update count
-
-    # #user has downvoted a post
-    #     #update count
-
-    # #user has inputed a number for the sentence length
-
-    # sentence = markov_sentence.create_sentence(length=length)
-
-    # favorited_list = favorited.find()
-    # print(favorited_list)
-
-    return render_template('tvd.html')#, sentence=sentence, favorites=list(favorited_list))
+            return redirect(url_for('characters_page',name=char_name))
 
 
 
