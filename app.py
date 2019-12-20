@@ -69,9 +69,6 @@ characters.insert_one(
     )
 
 
-words_list = cleanup_source('hist_test.txt')
-narkov_sentence = NarkovChain(words_list)
-
 
 app = Flask(__name__)
 
