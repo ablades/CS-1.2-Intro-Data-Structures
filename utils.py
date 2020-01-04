@@ -25,8 +25,3 @@ def cleanup_source(file_name):
                 word_list.append(word)
 
     return word_list
-
-if __name__ == "__main__":
-    cleanup_source("static/main_character_scripts/Bonnie.txt")
-    
-    

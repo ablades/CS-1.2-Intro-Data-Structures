@@ -69,8 +69,9 @@ class NarkovChain(dict):
             state = ' '.join(sentence_list[end - self.order:end])
 
             #sample the state and add to list
+            #no following state exists end the sentence
             if self.get(state) is None:
-                sentence_list.append('.')
+                #sentence_list.append('.')
                 stop_token_hit = True
             else:
                 sampled_word = self.get(state).sample()

@@ -14,8 +14,6 @@ db = client.get_default_database()
 
 favorites = db.favorited
 characters = db.characters
-characters.drop()
-favorites.drop()
 
 alaric_corpus = cleanup_source('static/main_character_scripts/Alaric.txt')
 bonnie_corpus = cleanup_source('static/main_character_scripts/Bonnie.txt')
@@ -25,49 +23,61 @@ jeremy_corpus = cleanup_source('static/main_character_scripts/Jeremy.txt')
 stefan_corpus = cleanup_source('static/main_character_scripts/Stefan.txt')
 damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
 
-characters.insert_one(
-    {"name": "Damon Salvatore",
+#Damon
+key = {"name": "Damon Salvatore"}
+value = {"name": "Damon Salvatore",
     "img_path": "static/imgs/damon_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Damon.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Alaric Saltzman",
+characters.update(key, value, upsert=True)
+
+#Alaric
+key = {"name": "Alaric Saltzman"}
+value = {"name": "Alaric Saltzman",
     "img_path": "static/imgs/alaric_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Alaric.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Caroline Forbes",
+characters.update(key, value, upsert=True)
+
+#Caroline
+key = {"name": "Caroline Forbes"}
+value = {"name": "Caroline Forbes",
     "img_path": "static/imgs/caroline_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Caroline.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Bonnie Bennett",
+characters.update(key, value, upsert=True)
+
+#Bonnie
+key = {"name": "Bonnie Bennett"}
+value = {"name": "Bonnie Bennett",
     "img_path": "static/imgs/bonnie_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Bonnie.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Elena Gilbert",
+characters.update(key, value, upsert=True)
+
+#Elena
+key = {"name": "Elena Gilbert"}
+value = {"name": "Elena Gilbert",
     "img_path": "static/imgs/elena_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Elena.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Jeremy Gilbert",
+characters.update(key, value, upsert=True)
+
+#Jeremy
+key = {"name": "Jeremy Gilbert"}
+value = {"name": "Jeremy Gilbert",
     "img_path": "static/imgs/jeremy_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Jeremy.txt')
     }
-    )
-characters.insert_one(
-    {"name": "Stefan Salvatore",
+characters.update(key, value, upsert=True)
+
+#Stefan
+key = {"name": "Stefan Salvatore"}
+value = {"name": "Stefan Salvatore",
     "img_path": "static/imgs/stefan_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Stefan.txt')
     }
-    )
-
+characters.update(key, value, upsert=True)
 
 
 app = Flask(__name__)
