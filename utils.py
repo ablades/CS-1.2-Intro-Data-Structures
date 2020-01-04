@@ -13,10 +13,20 @@ def cleanup_source(file_name):
         Params: file_name path to file
     """
     with open(file_name, 'r') as f:
-        words = f.read().split()
-
+        lines = f.readlines()
+        #words = f.read().split()
     word_list = []
-    for word in words:
-        word_list.append(word)
+    #handle small lines said by characters and spaces in files
+    for i, line in enumerate(lines):
+        line = line.lstrip().rstrip()
+
+        if len(line.split(' ')) >= 4:
+            for word in line.split():
+                word_list.append(word)
 
     return word_list
+
+if __name__ == "__main__":
+    cleanup_source("static/main_character_scripts/Bonnie.txt")
+    
+    
