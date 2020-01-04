@@ -122,6 +122,7 @@ def characters_page(name):
             return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
 
     favorites = list(db.favorited.find({'char_name': name}))
+    character = db.characters.find_one({"name": name})
     return render_template('characterpage.html', character=character, sentence="", favorites=favorites)
 
 
