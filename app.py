@@ -83,16 +83,6 @@ characters.update(key, value, upsert=True)
 app = Flask(__name__)
 
 
-
-
-damon_narkov = NarkovChain(2, words_list=damon_corpus)
-bonnie_narkov = NarkovChain(2, words_list=bonnie_corpus)
-elena_narkov = NarkovChain(2, words_list=elena_corpus)
-caroline_narkov = NarkovChain(2, words_list=caroline_corpus)
-jeremy_narkov = NarkovChain(2, words_list=jeremy_corpus)
-stefan_narkov = NarkovChain(2, words_list=stefan_corpus)
-alaric_narkov = NarkovChain(2, words_list=alaric_corpus)
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
