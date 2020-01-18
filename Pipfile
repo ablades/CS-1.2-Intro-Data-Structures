@@ -4,13 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pylint = "*"
 
 [packages]
 flask = "*"
-gunicorn = "*"
 pymongo = "*"
-mongodb = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
