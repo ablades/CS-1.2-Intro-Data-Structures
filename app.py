@@ -102,13 +102,13 @@ def characters_page(name):
     if request.method == 'POST':
         char_name = character['name']
         sentence = str(request.form.get('sentence'))
-        order = int(request.form.get('order'))
+        #order = int(request.form.get('order'))
         corpus = character['corpus']
         #user wants to favorite current sentence
 
         if request.form.get('favorite') is not None:
             db.favorited.insert_one({"char_name": char_name,
-            "order": order,
+            #"order": order,
             "sentence": sentence
             })
             favorites = list(db.favorited.find({'char_name': name}))
@@ -116,7 +116,7 @@ def characters_page(name):
         #user wants a sentence
         else:
             #build sentence with order and corpus
-            sentence = NarkovChain(order,corpus).create_sentence()
+            sentence = NarkovChain(2,corpus).create_sentence()
             favorites = list(db.favorited.find({'char_name': name}))
             return render_template('characterpage.html',character=character, sentence=sentence, favorites=favorites)
 
