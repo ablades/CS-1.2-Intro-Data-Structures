@@ -26,7 +26,7 @@ damon_corpus = cleanup_source('static/main_character_scripts/Damon.txt')
 #Damon
 key = {"name": "Damon Salvatore"}
 value = {"name": "Damon Salvatore",
-    "img_path": "static/imgs/damon_still.jpg",
+    "img_path": "imgs/damon_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Damon.txt')
     }
 characters.update(key, value, upsert=True)
@@ -34,7 +34,7 @@ characters.update(key, value, upsert=True)
 #Alaric
 key = {"name": "Alaric Saltzman"}
 value = {"name": "Alaric Saltzman",
-    "img_path": "static/imgs/alaric_still.jpg",
+    "img_path": "imgs/alaric_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Alaric.txt')
     }
 characters.update(key, value, upsert=True)
@@ -42,7 +42,7 @@ characters.update(key, value, upsert=True)
 #Caroline
 key = {"name": "Caroline Forbes"}
 value = {"name": "Caroline Forbes",
-    "img_path": "static/imgs/caroline_still.jpg",
+    "img_path": "imgs/caroline_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Caroline.txt')
     }
 characters.update(key, value, upsert=True)
@@ -50,7 +50,7 @@ characters.update(key, value, upsert=True)
 #Bonnie
 key = {"name": "Bonnie Bennett"}
 value = {"name": "Bonnie Bennett",
-    "img_path": "static/imgs/bonnie_still.jpg",
+    "img_path": "imgs/bonnie_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Bonnie.txt')
     }
 characters.update(key, value, upsert=True)
@@ -58,7 +58,7 @@ characters.update(key, value, upsert=True)
 #Elena
 key = {"name": "Elena Gilbert"}
 value = {"name": "Elena Gilbert",
-    "img_path": "static/imgs/elena_still.jpg",
+    "img_path": "imgs/elena_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Elena.txt')
     }
 characters.update(key, value, upsert=True)
@@ -66,7 +66,7 @@ characters.update(key, value, upsert=True)
 #Jeremy
 key = {"name": "Jeremy Gilbert"}
 value = {"name": "Jeremy Gilbert",
-    "img_path": "static/imgs/jeremy_still.jpg",
+    "img_path": "imgs/jeremy_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Jeremy.txt')
     }
 characters.update(key, value, upsert=True)
@@ -74,7 +74,7 @@ characters.update(key, value, upsert=True)
 #Stefan
 key = {"name": "Stefan Salvatore"}
 value = {"name": "Stefan Salvatore",
-    "img_path": "static/imgs/stefan_still.jpg",
+    "img_path": "imgs/stefan_still.jpg",
     "corpus": cleanup_source('static/main_character_scripts/Stefan.txt')
     }
 characters.update(key, value, upsert=True)
@@ -89,15 +89,16 @@ def index():
     #Select a character
     if request.form.get('char') is not None:
         character_name = str(request.form.get('char'))
-        character = db.characters.find_one({"name": character_name})
+        #character = db.characters.find_one({"name": character_name})
+        return redirect(url_for('characters_page' ,name=character_name))
 
-        return render_template('characterpage.html',character=character, sentence="")
+        #return render_template('characterpage.html',character=character, sentence="")
 
     return render_template('tvd.html')
 
 @app.route('/character/<name>', methods=['GET', 'POST'])
 def characters_page(name):
-    character = db.characters.find_one({"name": name})
+    character = dict(db.characters.find_one({"name": name}))
     favorites = list(db.favorited.find({'char_name': name}))
     #user wants a sentence/favorited
     if request.method == 'POST':

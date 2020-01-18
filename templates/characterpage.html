@@ -15,7 +15,7 @@
                   <h1>{{character['name']}}</h1>
                     <!--Portrait-->
                     <button class="btn-fluid rounded-pill" type="button">
-                    <img src="{{character['img_path']}}" class="img-fluid rounded-pill" alt="Responsive image">
+                    <img src="{{ url_for('static', filename=character.img_path) }}" class="img-fluid rounded-pill" alt="Responsive image">
                     </button>
                 </div>
                 <!-- Middle of viewport -->
@@ -36,14 +36,14 @@
                         <div class="col">
                             <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Generate Sentence</button>
                         </div>
-                        <div class="col">
+                        <div class="col" >
                             <button type="submit" name="favorite" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
                         </div>
                         <div class="col">
                             <span>
                                 <label class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">
                                     Chain Order: 
-                                    <input class="rounded-pill" type="number" name="order" min="1" max="10" value="2" /> 
+                                    <input class="rounded-pill" type="number" name="order" min="1" max="10" value="2" default="2" /> 
                                 </label>
                             </span>
                         </div>
