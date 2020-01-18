@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <!-- Middle of viewport -->
-            <div class="col-md-8 text-center">
+            <div class="col-md-8">
             <form action="/character/{{character['name']}}" method="POST">
                     <div class="row text-center">
                       <div class="col-12 text-center">
@@ -28,20 +28,16 @@
                       </div>
                   </div>
                     <div class="row justify-content-center">
-                        <div class="col">
-                            <button type="submit" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Generate Sentence</button>
+
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <button type="submit" class="btn btn-primary">Generate Sentence</button>
+                          <button type="submit" name="favorite" class="btn btn-primary">Favorite &#x2606;</button>
                         </div>
-                        <div class="col" >
-                            <button type="submit" name="favorite" class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">Favorite &#x2606;</button>
-                        </div>
-                        <div class="col">
-                            <span>
-                                <label class="btn-fluid btn-primary rounded-pill border border-primary rounded-lg">
-                                    Chain Order: 
-                                    <input class="rounded-pill" type="number" name="order" min="1" max="10" value="2" default="2" /> 
-                                </label>
-                            </span>
-                        </div>
+                        <input class="form-control" type="number" name="order" min="1" max="10" value="2" default="2" />
+                      </div>
+
                     </div>
                 </form>
                 </div>

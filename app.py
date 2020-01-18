@@ -92,8 +92,6 @@ def index():
         #character = db.characters.find_one({"name": character_name})
         return redirect(url_for('characters_page' ,name=character_name))
 
-        #return render_template('characterpage.html',character=character, sentence="")
-
     return render_template('tvd.html')
 
 @app.route('/character/<name>', methods=['GET', 'POST'])
