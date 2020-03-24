@@ -1,6 +1,8 @@
 # Tweet Generator: TVD
 
 <!--Website Image-->
+![Home](home.png)
+![Character](character_screen.png)
 
 ## About
 Tweet Generator was an extremely fun project to work on. This project implements a basic form of Natural Language Processing utilizing Markov Chains. Markov Chains are structured similarly to a finite state machine model.
